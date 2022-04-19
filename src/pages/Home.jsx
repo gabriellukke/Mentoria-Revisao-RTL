@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import countries from '../data';
 
 import Country from '../components/Country';
 import { fetchAllCountries } from '../services/api';
@@ -8,7 +9,7 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      countries: [],
+      countries: countries,
       index: 0,
     }
 
@@ -17,7 +18,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.getAllCountries();
+    //this.getAllCountries();
   }
 
   /* getRandomCountry(){
@@ -33,8 +34,8 @@ class Home extends Component {
   }
 
   nextCountry() {
-    const { countries, index } = this.state;
-    if (index === countries.length) {
+    const { index } = this.state;
+    if (index === 2) {
       this.setState({ index: 0 })
       return null;
     }
@@ -44,8 +45,15 @@ class Home extends Component {
     }))
   }
 
+  resetToAll = (region) => {
+    this.setState({
+      countries: countries,
+    })
+  }
+
   render() {
     const { countries, index } = this.state;
+    if (!countries.length) return <div>Loading...</div>
     return (
       <section>
         <h2>Encountered Country</h2>
